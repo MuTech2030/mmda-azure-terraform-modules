@@ -1,5 +1,5 @@
 output "virtual_network_id" {
-  value       = azurerm_virtual_network.azure_virtual_network.id
+  value = azurerm_virtual_network.azure_virtual_network.id
   description = "The ID of the Virtual Network."
 }
 
