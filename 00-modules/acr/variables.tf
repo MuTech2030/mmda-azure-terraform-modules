@@ -15,7 +15,7 @@ variable "location" {
 variable "acr_sku" {
   type        = string
   description = "The ACR SKU"
-  default = "Standard"
+  default     = "Standard"
 }
 
 variable "tags" {

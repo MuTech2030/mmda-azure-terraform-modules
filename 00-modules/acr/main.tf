@@ -16,6 +16,8 @@ resource "azurerm_container_registry" "acr" {
       tags                    = georeplications.value.tags
     }
   }
+  tags = var.tags
+
 }
 # Encryption: Optional customer-managed key configuration
 # Optional private endpoint configuration
