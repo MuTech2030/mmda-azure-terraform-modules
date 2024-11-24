@@ -18,7 +18,9 @@ variable "acr_sku" {
   default = "Standard"
 }
 
-
+variable "tags" {
+  type = map(string)
+}
 variable "admin_enabled" {
   description = "Enable or disable the admin user."
   type        = bool
