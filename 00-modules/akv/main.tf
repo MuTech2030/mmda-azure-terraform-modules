@@ -1,5 +1,5 @@
 resource "azurerm_key_vault" "akv" {
-  name                        = var.akv_name
+  name                        = "akv-${var.name}"
   location                    = var.location
   resource_group_name         = var.resource_group_name
   enabled_for_disk_encryption = var.enabled_for_disk_encryption
@@ -43,7 +43,7 @@ resource "azurerm_monitor_diagnostic_setting" "keyvault_diag" {
 # Telemetry for Key Vault
 resource "azurerm_monitor_diagnostic_setting" "telemetry" {
   count               = var.enable_telemetry ? 1 : 0
-  name                = "telemetry-${var.akv_name}"
+  name                = "telemetry-${var.name}"
   target_resource_id  = azurerm_key_vault.akv.id
   log_analytics_workspace_id = var.diagnostic_settings["to_la"].workspace_resource_id
 

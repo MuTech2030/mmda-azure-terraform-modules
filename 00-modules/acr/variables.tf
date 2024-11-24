@@ -1,4 +1,4 @@
-variable "acr_name" {
+variable "name" {
   type        = string
   description = "Name of the azure container registory"
 }

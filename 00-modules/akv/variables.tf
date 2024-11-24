@@ -1,4 +1,4 @@
-variable "akv_name" {
+variable "name" {
   type        = string
   description = "Name of the Azure Key Vault"
 }

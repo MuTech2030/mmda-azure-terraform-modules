@@ -1,5 +1,5 @@
 resource "azurerm_container_registry" "acr" {
-  name                = var.acr_name
+  name                = "acr-${var.name}"
   resource_group_name = var.resource_group_name
   location            = var.location
   sku                 = var.acr_sku
@@ -16,7 +16,6 @@ resource "azurerm_container_registry" "acr" {
       tags                    = georeplications.value.tags
     }
   }
-  tags = var.tags
 
 }
 # Encryption: Optional customer-managed key configuration
