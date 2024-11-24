@@ -16,14 +16,15 @@ resource "azurerm_key_vault" "akv" {
 
 # Diagnostic Settings for Key Vault
 resource "azurerm_monitor_diagnostic_setting" "keyvault_diag" {
-  count               = var.enable_diagnostic_settings ? 1 : 0
+  count = var.enable_diagnostic_settings && var.diagnostic_settings != null ? 1 : 0
+
   name                = var.diagnostic_settings["to_la"].name
   target_resource_id  = azurerm_key_vault.akv.id
   log_analytics_workspace_id = var.diagnostic_settings["to_la"].workspace_resource_id
 
   # Logs Configuration
   dynamic "log" {
-    for_each = toset(data.azurerm_monitor_diagnostic_categories.keyvault.logs)
+    for_each = var.enable_diagnostic_settings && var.diagnostic_settings != null ? toset(data.azurerm_monitor_diagnostic_categories.keyvault.logs) : []
     content {
       category = log.value
       enabled  = true
@@ -32,7 +33,7 @@ resource "azurerm_monitor_diagnostic_setting" "keyvault_diag" {
 
   # Metrics Configuration
   dynamic "metric" {
-    for_each = toset(data.azurerm_monitor_diagnostic_categories.keyvault.metrics)
+    for_each = var.enable_diagnostic_settings && var.diagnostic_settings != null ? toset(data.azurerm_monitor_diagnostic_categories.keyvault.metrics) : []
     content {
       category = metric.value
       enabled  = true
@@ -42,14 +43,15 @@ resource "azurerm_monitor_diagnostic_setting" "keyvault_diag" {
 
 # Telemetry for Key Vault
 resource "azurerm_monitor_diagnostic_setting" "telemetry" {
-  count               = var.enable_telemetry ? 1 : 0
+  count = var.enable_telemetry && var.diagnostic_settings != null ? 1 : 0
+
   name                = "telemetry-${var.name}"
   target_resource_id  = azurerm_key_vault.akv.id
   log_analytics_workspace_id = var.diagnostic_settings["to_la"].workspace_resource_id
 
   # Logs Configuration
   dynamic "log" {
-    for_each = toset(data.azurerm_monitor_diagnostic_categories.keyvault.logs)
+    for_each = var.enable_telemetry && var.diagnostic_settings != null ? toset(data.azurerm_monitor_diagnostic_categories.keyvault.logs) : []
     content {
       category = log.value
       enabled  = true
@@ -58,7 +60,7 @@ resource "azurerm_monitor_diagnostic_setting" "telemetry" {
 
   # Metrics Configuration
   dynamic "metric" {
-    for_each = toset(data.azurerm_monitor_diagnostic_categories.keyvault.metrics)
+    for_each = var.enable_telemetry && var.diagnostic_settings != null ? toset(data.azurerm_monitor_diagnostic_categories.keyvault.metrics) : []
     content {
       category = metric.value
       enabled  = true

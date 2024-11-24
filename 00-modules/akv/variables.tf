@@ -64,12 +64,14 @@ variable "enable_diagnostic_settings" {
 variable "diagnostic_settings" {
   description = "A map of diagnostic settings. Includes log analytics workspace details."
   type = object({
-    to_la = object({
+    to_la = optional(object({
       name                  = string
       workspace_resource_id = string
-    })
+    }))
   })
+  default = null
 }
+
 
 variable "log_retention_days" {
   description = "The number of days to retain logs for the Key Vault."
