@@ -1,4 +1,4 @@
-variable "name" {
+variable "vnet_name" {
   type = string
   description = "The Name of the Vnet"
 }
