@@ -1,2 +1,2 @@
 # terraform-modules
-This is a terrform modules repo 
+This is an Azure terrform modules repo 
